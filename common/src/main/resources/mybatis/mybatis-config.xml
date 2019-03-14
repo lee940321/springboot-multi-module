@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties>
+    </properties>
+    <settings>
+        <!-- 使全局的映射器启用或禁用缓存。default:true -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载。。default:true -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载。 -->
+        <setting name="aggressiveLazyLoading" value="true"/>
+        <!-- 是否允许单条sql 返回多个数据集  (取决于驱动的兼容性) default:true -->
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <!--使用列标签，而不是列名。在这方面，不同的驱动有不同的行为。参考驱动文档或测试两种方法来决定你的驱动程序的行为如何。default:true -->
+        <setting name="useColumnLabel" value="true"/>
+        <!--通常数据库列使用大写单词命名，单词间用下划线分隔；而java属性一般遵循驼峰命名法。 为了在这两种命名方式之间启用自动映射，需要将 mapUnderscoreToCamelCase设置为true-->
+        <setting name="mapUnderscoreToCamelCase" value="true"></setting>
+        <!-- 指定MyBatis的应如何自动映射列到字段/属性。NONE自动映射。 PARTIAL只会自动映射结果没有嵌套结果映射定义里面。 FULL会自动映射的结果映射任何复杂的（包含嵌套或其他）。 -->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!-- 这是默认的执行类型  （SIMPLE: 简单； REUSE: 执行器可能重复使用prepared statements语句；BATCH: 执行器可以重复执行语句和批量更新）  -->
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <!-- 设置本地缓存范围 session:就会有数据的共享  statement:语句范围 (这样就不会有数据的共享 ) defalut:session -->
+        <setting name="localCacheScope" value="SESSION"/>
+        <!-- 设置但JDBC类型为空时,某些驱动程序 要指定值,default:OTHER，插入空值时不需要指定类型 -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+        <!--允许 JDBC 支持生成的键。需要适合的驱动。如果设置为 true 则这个设置强制生成的键被使用，尽管一些驱动拒绝兼容但仍然有效（比如
+            Derby）。 系统默认值是false-->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!--设置超时时间，它决定驱动等待一个数据库响应的时间。 系统默认值是null，设置只是为了展示出来 -->
+        <setting name="defaultStatementTimeout" value="25000"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.lee.star.pojo"></package>
+    </typeAliases>
+    <!--<typeHandlers>
+        &lt;!&ndash;<typeHandler handler="com.idb.raven.common.handler.MapStringTypeHandler"></typeHandler>&ndash;&gt;
+        <typeHandler handler="com.idb.raven.common.handler.StringListTypeHandler"
+                     javaType="java.util.List"></typeHandler>
+
+        <typeHandler handler="com.idb.raven.common.handler.IntegerArrayTypeHandler"></typeHandler>
+        <typeHandler handler="com.idb.raven.common.handler.StringArrayTypeHandler"
+                     javaType="[Ljava.lang.String;"></typeHandler>
+    </typeHandlers>-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!--helperDialect：分页插件会自动检测当前的数据库链接，自动选择合适的分页方式。 你可以配置helperDialect属性来指定分页插件使用哪种方言。配置时，可以使用下面的缩写值：
+                oracle,mysql,mariadb,sqlite,hsqldb,postgresql,db2,sqlserver,informix,h2,sqlserver2012,derby-->
+            <property name="helperDialect" value="mysql"></property>
+            <!--ffsetAsPageNum：默认值为 false，该参数对使用 RowBounds 作为分页参数时有效。 当该参数设置为 true 时，
+                会将 RowBounds 中的 offset 参数当成 pageNum 使用，可以用页码和页面大小两个参数进行分页。-->
+            <property name="offsetAsPageNum" value="true"/>
+            <!--supportMethodsArguments：支持通过 Mapper 接口参数来传递分页参数，默认值false，分页插件会从查询方法的参数值中，自动根据上面 params 配置的字段中取值，查找到合适的值时就会自动分页。
+                使用方法可以参考测试代码中的 com.github.pagehelper.test.basic 包下的 ArgumentsMapTest 和 ArgumentsObjTest。-->
+            <property name="supportMethodsArguments" value="true"/>
+            <property name="returnPageInfo" value="check"/>
+            <!--rowBoundsWithCount：默认值为false，该参数对使用 RowBounds 作为分页参数时有效。
+                当该参数设置为true时，使用 RowBounds 分页会进行 count 查询。-->
+            <property name="rowBoundsWithCount" value="true"/>
+            <!--pageSizeZero：默认值为 false，当该参数设置为 true 时，
+                如果 pageSize=0 或者 RowBounds.limit = 0 就会查询出全部的结果（相当于没有执行分页查询，但是返回结果仍然是 Page 类型）。-->
+            <property name="pageSizeZero" value="true"/>
+            <!--reasonable：分页合理化参数，默认值为false。当该参数设置为 true 时，pageNum<=0 时会查询第一页，
+                 pageNum>pages（超过总数时），会查询最后一页。默认false 时，直接根据参数进行查询。-->
+            <property name="reasonable" value="true"/>
+            <!--params：为了支持startPage(Object params)方法，增加了该参数来配置参数映射，用于从对象中根据属性名取值， 可以配置
+                pageNum,pageSize,count,pageSizeZero,reasonable，不配置映射的用默认值，
+                默认值为pageNum=pageNum;pageSize=pageSize;count=countSql;reasonable=reasonable;pageSizeZero=pageSizeZero。-->
+            <property name="params" value="count=countSql"/>
+            <!--通用Mapper接口，多个用逗号隔开-->
+        </plugin>
+
+        <!--处理sql-->
+        <!--<plugin interceptor="com.idb.raven.common.component.intercept.MapperIntercept">-->
+        <!--<property name="someProperty" value="100"/>-->
+        <!--</plugin>-->
+    </plugins>
+</configuration>

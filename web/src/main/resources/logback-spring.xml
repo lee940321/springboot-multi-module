@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <property name="APP_NAME" value="@project.artifactId@_@env.profile@"/>
+    <property name="ENCODER_PATTERN"
+              value=" %d{[yyyy-MM-dd HH:mm:ss]}[%level][%logger{1}:%L-%X{TENANT_KEY}]  %msg%n"/>
+    <property name="ENCODING" value="UTF-8"/>
+    <property name="MAX_HISTORY" value="90"/>
+    <property name="MAX_FILE_SIZE" value="50MB"/>
+    <property name="CONSOLE_FILTER" value="@console.filter@"></property>
+
+    <contextName>${APP_NAME}</contextName>
+    <jmxConfigurator/>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="${ENCODING}">
+            <pattern>${ENCODER_PATTERN}</pattern>
+            <charset>${ENCODING}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${CONSOLE_FILTER}</level>
+        </filter>
+    </appender>
+
+    <root level="@log.root@">
+        <appender-ref ref="console"/>
+    </root>
+
+        
+</configuration>
