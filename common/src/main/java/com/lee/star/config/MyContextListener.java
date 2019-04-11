@@ -55,9 +55,9 @@ class SSHConnection {
     }
 }
 
-@Configuration
-@WebListener
-@Profile({"dev"})
+//@Configuration
+//@WebListener
+//@Profile({"dev"})
 public class MyContextListener implements ServletContextListener {
 
     Logger logger = LoggerFactory.getLogger(MyContextListener.class);
