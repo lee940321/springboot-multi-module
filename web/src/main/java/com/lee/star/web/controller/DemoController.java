@@ -1,5 +1,6 @@
 package com.lee.star.web.controller;
 
+import com.lee.star.common.component.rabbit.RabbitSendService;
 import com.lee.star.demo.service.DemoService;
 import com.lee.star.demo.pojo.Demo;
 import org.slf4j.Logger;
@@ -24,9 +25,17 @@ public class DemoController {
 
     @Autowired
     private DemoService demoService;
+    @Autowired
+    private RabbitSendService rabbitSendService;
 
     @GetMapping("/list")
     public List<Demo> getList() {
         return demoService.getList();
+    }
+
+    @GetMapping("/rabbit")
+    public String rabbitTest() {
+        rabbitSendService.sendMessage("send Message!!!");
+        return "ok";
     }
 }

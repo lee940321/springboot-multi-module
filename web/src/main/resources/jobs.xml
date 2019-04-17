@@ -16,6 +16,6 @@
 
     <!--测试job-->
     <job:simple id="heartBeatJob" class="com.lee.star.job.HeartbeatJob"
-                registry-center-ref="regCenter" cron="0 * * * * ?" sharding-total-count="1"
+                registry-center-ref="regCenter" cron="0 0/30 * * * ?" sharding-total-count="1"
                 sharding-item-parameters="0=A,1=B,2=C" description="定时任务：demo 每分钟执行一次" overwrite="true"/>
 </beans>

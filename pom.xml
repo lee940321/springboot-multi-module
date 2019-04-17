@@ -10,6 +10,7 @@
         <module>common</module>
         <module>demo</module>
         <module>job</module>
+        <module>dubbo-api</module>
     </modules>
 
     <!-- 继承说明：这里继承SpringBoot提供的父工程 -->
@@ -49,6 +50,7 @@
         <joda-time.version>2.10.1</joda-time.version>
         <guava.version>18.0</guava.version>
         <elastic-job.version>2.1.5</elastic-job.version>
+        <dubbo.version>0.2.0</dubbo.version>
     </properties>
 
     <!-- 版本说明：这里统一管理依赖的版本号 -->
@@ -61,24 +63,8 @@
                 <version>${springboot.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-tomcat</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>ch.qos.logback</groupId>
                         <artifactId>logback-classic</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-jetty</artifactId>
-                <version>${springboot.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>asm</artifactId>
-                        <groupId>org.ow2.asm</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -89,6 +75,18 @@
                 <version>${springboot.version}</version>
             </dependency>
 
+            <!-- spring-boot-starter-amqp -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -301,6 +299,28 @@
                 <artifactId>elastic-job-lite-spring</artifactId>
                 <version>${elastic-job.version}</version>
             </dependency>
+
+            <!-- spring-kafka -->
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>2.2.4.RELEASE</version>
+            </dependency>
+
+            <!-- dubbo -->
+            <dependency>
+                <groupId>com.alibaba.spring.boot</groupId>
+                <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>2.0.0</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.101tec/zkclient -->
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>0.11</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
